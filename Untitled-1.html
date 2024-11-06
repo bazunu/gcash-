@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Balance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f2f5;
+        }
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+        }
+        .balance {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .withdraw-section {
+            margin-top: 15px;
+        }
+        input[type="number"] {
+            padding: 8px;
+            width: 100%;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            margin-top: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin-top: 15px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Account Balance</h2>
+        <div class="balance" id="balanceDisplay">$5000</div>
+
+        <div class="withdraw-section">
+            <label for="withdrawAmount">Enter Amount to Withdraw:</label>
+            <input type="number" id="withdrawAmount" min="0" placeholder="Amount">
+            <button onclick="withdraw()">Withdraw</button>
+        </div>
+        <div class="message" id="message"></div>
+    </div>
+
+    <script>
+        let balance = 5000; // Initial balance
+
+        function withdraw() {
+            const withdrawAmount = parseFloat(document.getElementById("withdrawAmount").value);
+            const messageDisplay = document.getElementById("message");
+
+            if (isNaN(withdrawAmount) || withdrawAmount <= 0) {
+                messageDisplay.textContent = "Please enter a valid amount.";
+                messageDisplay.style.color = "red";
+                return;
+            }
+
+            if (withdrawAmount > balance) {
+                messageDisplay.textContent = "Insufficient balance.";
+                messageDisplay.style.color = "red";
+            } else {
+                balance -= withdrawAmount;
+                document.getElementById("balanceDisplay").textContent = `$${balance}`;
+                messageDisplay.textContent = `Successfully withdrawn $${withdrawAmount}.`;
+                messageDisplay.style.color = "green";
+            }
+        }
+    </script>
+</body>
+</html>
